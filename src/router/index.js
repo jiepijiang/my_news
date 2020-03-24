@@ -1,5 +1,7 @@
 import Vue from 'vue'
+// 导入路由
 import VueRouter from 'vue-router'
+// 导入组件，home 是一个首页组件
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
