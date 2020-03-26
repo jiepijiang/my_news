@@ -1,24 +1,17 @@
 import Vue from 'vue'
 // 导入路由
 import VueRouter from 'vue-router'
-// 导入组件，home 是一个首页组件
-import Home from '../views/Home.vue'
+// 导入登录组件
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/Login.vue")
   }
 ]
 

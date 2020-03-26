@@ -1,32 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+// 引入图标库
+@import url("//at.alicdn.com/t/font_1426139_jm7n2373nlh.css");
+// 导入 Vant 样式
+@import url("../node_modules/vant/lib/index.css");
+
+// ----公共样式---
+* {
+  margin: 0;
+  padding: 0;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  // 继承父级的颜色
+  color: inherit;
+  text-decoration: none;
 }
+a:hover {
+  color: inherit;
+}
+ul,
+li,
+ol {
+  list-style: none;
+}
+i,
+em {
+  font-style: normal;
+}
+// ----公共样式---
 </style>
