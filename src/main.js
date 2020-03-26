@@ -15,6 +15,9 @@ Vue.prototype.$axios = axios;
 // Vue.use 都是拿来注册插件的
 Vue.use(Vant);
 
+// 添加基准路径
+axios.defaults.baseURL = "http://localhost:3000"
+
 // 上线环境是否提示信息(现在可以忽略)
 Vue.config.productionTip = false
 

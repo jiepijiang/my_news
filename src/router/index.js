@@ -3,15 +3,25 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // 导入登录组件
 import Login from '../views/Login.vue'
+// 导入注册组件
+import Register from '../views/Register.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/Login.vue")
+  },
+  {
+    // 注册页
+    path: '/register',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/Register.vue")
   }
 ]
 
