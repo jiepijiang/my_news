@@ -8,7 +8,7 @@ import Register from '../views/Register.vue'
 // 导入个人中心页组件
 import Personal from '../views/Personal.vue'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
