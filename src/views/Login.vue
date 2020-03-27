@@ -110,10 +110,12 @@ export default {
       }).then(res => {
         // console.log(res);
         // 获取成功返回的信息
-        const { message } = res.data;
+        const { message, data } = res.data;
         // console.log(message);
         // 使用vant弹窗提示,success表示成功的弹窗
         this.$toast.success(message);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        this.$router.push("/personal");
       });
     }
   }
