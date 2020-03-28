@@ -7,11 +7,12 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 // 导入个人中心页组件
 import Personal from '../views/Personal.vue'
+// 导入个人编辑页
+import EditProfile from '../views/EditProfile.vue'
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
@@ -31,7 +32,15 @@ const routes = [
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/Personal.vue")
-  }
+  },
+  {
+    // 个人编辑页
+    path: '/edit-profile',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/EditProfile.vue")
+  },
+
 
 ]
 

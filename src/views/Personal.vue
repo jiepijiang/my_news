@@ -1,32 +1,31 @@
 <template>
   <div class="container">
-    <!-- 顶部的导航条 -->
-    <div class="navigate-bar">
-      <span class="iconfont iconjiantou2" @click="$router.back()"></span>
-      <strong>个人中心</strong>
-      <span class="iconfont iconshouye" @click="$router.push('/')"></span>
-    </div>
+    <!-- 引入自定义头部组件 -->
+    <!-- showHome 是显示主页图标的  -->
+    <NavigateBar title="个人中心" showHome="true" />
     <!-- 头部 -->
-    <div class="header">
-      <!-- 头像 -->
-      <div class="avatar">
-        <!-- $axios.defaults.baseURL 就是后台的基准地址 -->
-        <img :src="$axios.defaults.baseURL+userInfo.head_img" alt />
-      </div>
-      <!-- 姓名 -->
-      <div class="profile">
-        <div>
-          <!-- 性别男 图标 -->
-          <span class="iconfont iconxingbienan" v-if="userInfo.gender===1"></span>
-          <!-- 性别女 图标 -->
-          <span class="iconfont iconxingbienv" v-if="userInfo.gender===0"></span>
-          {{userInfo.nickname}}
+    <router-link to="/edit-profile">
+      <div class="header">
+        <!-- 头像 -->
+        <div class="avatar">
+          <!-- $axios.defaults.baseURL 就是后台的基准地址 -->
+          <img :src="$axios.defaults.baseURL+userInfo.head_img" alt />
         </div>
-        <p>{{moment(userInfo.create_date).format('YYYY-MM-DD')}}</p>
+        <!-- 姓名 -->
+        <div class="profile">
+          <div>
+            <!-- 性别男 图标 -->
+            <span class="iconfont iconxingbienan" v-if="userInfo.gender===1"></span>
+            <!-- 性别女 图标 -->
+            <span class="iconfont iconxingbienv" v-if="userInfo.gender===0"></span>
+            {{userInfo.nickname}}
+          </div>
+          <p>{{moment(userInfo.create_date).format('YYYY-MM-DD')}}</p>
+        </div>
+        <!-- 右侧的箭头图标 -->
+        <span class="arrow iconfont iconjiantou1"></span>
       </div>
-      <!-- 右侧的箭头图标 -->
-      <span class="arrow iconfont iconjiantou1"></span>
-    </div>
+    </router-link>
 
     <!-- 组价的调用,单双标签都可以 -->
     <Listbar v-for="(item,index) in rows" :key="index" :label="item.label" :tips="item.tips" />
@@ -40,6 +39,8 @@
 <script>
 // 导入列表按钮栏的组件
 import Listbar from "@/components/Listbar";
+// 引入头部的导航组件
+import NavigateBar from "@/components/NavigateBar";
 import moment from "moment";
 export default {
   data() {
@@ -57,9 +58,10 @@ export default {
   },
   // 注册列表组件,导入的子组件都必须注册才可以在模板渲染
   components: {
-    Listbar
+    Listbar,
+    NavigateBar
   },
-  // 组件加载完毕后出发
+  // 组件加载完毕后触发
   mounted() {
     // 从本地获取token和id,并且转换成对象
     // useJson.token 和 useJson.user.id 这两个值是接口需要的
@@ -102,15 +104,7 @@ export default {
 };
 </script>
 
-<style lang="less">
-.navigate-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: 48/360 * 100vw;
-  padding: 0 20/360 * 100vw;
-  border-bottom: 1px #eee solid;
-}
+<style lang="less" scoped>
 .header {
   padding: 20/360 * 100vw;
   display: flex;
