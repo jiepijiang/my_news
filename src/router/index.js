@@ -13,6 +13,8 @@ import EditProfile from '../views/EditProfile.vue'
 import Follow from '../views/Follow.vue'
 // 导入我的跟帖页
 import Comment from '../views/Comment.vue'
+// 导入我的收藏页
+import Star from '../views/Star.vue'
 
 Vue.use(VueRouter);
 
@@ -58,6 +60,13 @@ const routes = [
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/Comment.vue")
+  },
+  {
+    // 我的收藏
+    path: '/star',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/Star.vue")
   },
 
 
