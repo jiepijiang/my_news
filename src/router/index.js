@@ -9,10 +9,15 @@ import Register from '../views/Register.vue'
 import Personal from '../views/Personal.vue'
 // 导入个人编辑页
 import EditProfile from '../views/EditProfile.vue'
+// 导入我的关注页
+import Follow from '../views/Follow.vue'
+// 导入我的跟帖页
+import Comment from '../views/Comment.vue'
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
@@ -39,6 +44,20 @@ const routes = [{
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/EditProfile.vue")
+  },
+  {
+    // 我的关注
+    path: '/follow',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/Follow.vue")
+  },
+  {
+    // 我的跟帖
+    path: '/comment',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/Comment.vue")
   },
 
 

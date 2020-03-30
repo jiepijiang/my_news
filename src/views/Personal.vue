@@ -28,7 +28,13 @@
     </router-link>
 
     <!-- 组价的调用,单双标签都可以 -->
-    <Listbar v-for="(item,index) in rows" :key="index" :label="item.label" :tips="item.tips" />
+    <Listbar
+      v-for="(item,index) in rows"
+      :key="index"
+      :label="item.label"
+      :tips="item.tips"
+      :path="item.path"
+    />
 
     <!-- 点击按钮时触发 -->
     <!-- @click.native 这个是一个事件类型,会给listbar这组件最外部的div强制绑定点击事件 -->
@@ -46,9 +52,9 @@ export default {
   data() {
     return {
       rows: [
-        { label: "我的关注", tips: "关注的用户" },
-        { label: "我的跟帖", tips: "跟帖回复" },
-        { label: "我的收藏", tips: "文章视频" }
+        { label: "我的关注", tips: "关注的用户", path: "/follow" },
+        { label: "我的跟帖", tips: "跟帖回复", path: "/comment" },
+        { label: "我的收藏", tips: "文章视频", path: "/star" }
       ],
       // 个人详细信息
       userInfo: {},

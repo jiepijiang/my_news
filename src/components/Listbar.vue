@@ -1,7 +1,7 @@
 <template>
   <!-- 列表栏 -->
   <div class="listbar">
-    <router-link to="#">
+    <router-link :to="path||'#'">
       <div>{{label}}</div>
       <div class="tips">
         {{tips}}
@@ -14,7 +14,7 @@
 <script>
 export default {
   // 动态属性,添加之后才能使用插值表达式
-  props: ["label", "tips"]
+  props: ["label", "tips", "path"]
 };
 </script>
 

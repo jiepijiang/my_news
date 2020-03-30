@@ -129,7 +129,7 @@ export default {
     },
     // 封装用户信息的函数
     handleEdit(data) {
-      return this.$axios({
+      this.$axios({
         url: "/user_update/" + this.userInfo.id,
         method: "post",
         headers: {
@@ -145,17 +145,14 @@ export default {
     // 修改昵称的事件
     handleChangeNickname() {
       // 调用编辑用户信息的函数
-      const request = this.handleEdit({ nickname: this.nickname });
-
-      request.then(() => {
-        // 同步修改当前显示的数据
-        this.userInfo.nickname = this.nickname;
-      });
+      this.handleEdit({ nickname: this.nickname });
+      // 同步修改当前显示的数据
+      this.userInfo.nickname = this.nickname;
     },
 
     // 修改密码的事件
     handleChangePassword() {
-      const request=this.handleEdit({ password: this.password });
+      this.handleEdit({ password: this.password });
       // this.userInfo.password = this.password;
     },
 
@@ -163,8 +160,7 @@ export default {
     onSelect(item) {
       // 默认情况下点击选项时不会自动收起
       // 可以通过 close-on-click-action 属性开启自动收起
-      const request = this.handleEdit({ gender: item.value });
-
+      this.handleEdit({ gender: item.value });
       this.userInfo.gender = item.value;
     }
   }
