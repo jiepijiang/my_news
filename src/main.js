@@ -16,7 +16,7 @@ Vue.prototype.$axios = axios;
 Vue.use(Vant);
 
 // 添加基准路径
-axios.defaults.baseURL = "http://localhost:3000"
+axios.defaults.baseURL = "http://127.0.0.1:3000"
 
 // 上线环境是否提示信息(现在可以忽略)
 Vue.config.productionTip = false;
@@ -29,11 +29,11 @@ router.beforeEach((to, from, next) => {
   // 判断是否去的个人中心页
   if (to.path === "/personal") {
     // 判断是否是登录状态,是否有token
-    if (JSON.parse(localStorage.getItem('userInfo'))){
+    if (JSON.parse(localStorage.getItem('userInfo'))) {
       next();
-    }else{
+    } else {
       // 跳转到登录页,next这个参数是可以传递路径,并且会跳转到该路径
-      next({path:"/login"})
+      next({ path: "/login" })
     }
   } else {
     // 非个人中心页,畅通无阻

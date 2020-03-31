@@ -41,19 +41,19 @@ export default {
     this.localUserJson = localUserJson;
     //   请求列表数据
     this.$axios({
-      url: "/user_follows/",
+      url: "/user_follows",
       headers: {
         Authorization: localUserJson.token
       }
     }).then(res => {
-      console.log(res);
-      //   data 就是关注的用户列表
+      // data就是我的关注的用户列表
       const { data } = res.data;
+      // 保存到data中的关注列表
       this.follows = data;
     });
   },
   methods: {
-    handleCancel() {
+    handleCancel(id, index) {
       // 根据id取消用户关注 -- 弹出确认框
       this.$dialog
         .confirm({
