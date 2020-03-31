@@ -1,7 +1,7 @@
 // 导入 vue 构造函数
 import Vue from 'vue'
 // 引入Vant ui 组件库
-import Vant from 'vant'
+import Vant, { Toast } from 'vant'
 // app 组件 (以 .vue 后缀名结尾的文件都是组件)
 import App from './App.vue'
 // 路由对象
@@ -39,6 +39,20 @@ router.beforeEach((to, from, next) => {
     // 非个人中心页,畅通无阻
     next()
   }
+});
+
+// axios的响应拦截器 文档地址：https://github.com/axios/axios#interceptor
+axios.interceptors.response.use(res => {
+  return res;
+}, error => {
+  // 如果请求返回的结构是错误的，会进入到错误的处理函数中
+  // error 是js原生的错误对象，我们可以用过error.response可以获取到详细的信息
+  console.log(error.response);
+  const { statusCode, message } = error.response.data;
+  if (statusCode === 400) {
+    Toast.fail(message)
+  }
+  return Promise.reject(error)
 })
 
 // 创建一个根实例
