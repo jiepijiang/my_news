@@ -27,7 +27,7 @@ Vue.config.productionTip = false;
 // next: Function: 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
 router.beforeEach((to, from, next) => {
   // 判断是否去的个人中心页
-  if (to.path === "/personal") {
+  if (to.meta.authorization) {
     // 判断是否是登录状态,是否有token
     if (JSON.parse(localStorage.getItem('userInfo'))) {
       next();

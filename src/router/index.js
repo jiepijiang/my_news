@@ -38,35 +38,55 @@ const routes = [
     path: '/personal',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
-    component: () => import("@/views/Personal.vue")
+    component: () => import("@/views/Personal.vue"),
+    meta: {
+      // 代表这个页面需要授权 -- 验证
+      authorization: true
+    },
   },
   {
     // 个人编辑页
     path: '/edit-profile',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
-    component: () => import("@/views/EditProfile.vue")
+    component: () => import("@/views/EditProfile.vue"),
+    meta: {
+      // 代表这个页面需要授权 -- 验证
+      authorization: true
+    },
   },
   {
     // 我的关注
     path: '/follow',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
-    component: () => import("@/views/Follow.vue")
+    component: () => import("@/views/Follow.vue"),
+    meta: {
+      // 代表这个页面需要授权 -- 验证
+      authorization: true
+    },
   },
   {
     // 我的跟帖
     path: '/comment',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
-    component: () => import("@/views/Comment.vue")
+    component: () => import("@/views/Comment.vue"),
+    meta: {
+      // 代表这个页面需要授权 -- 验证
+      authorization: true
+    },
   },
   {
     // 我的收藏
     path: '/star',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
-    component: () => import("@/views/Star.vue")
+    component: () => import("@/views/Star.vue"),
+    meta: {
+      // 代表这个页面需要授权 -- 验证
+      authorization: true
+    },
   },
 
 
