@@ -20,6 +20,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    component: () => import("@/views/Index.vue")
+  },
+  {
     // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
