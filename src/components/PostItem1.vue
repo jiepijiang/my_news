@@ -3,18 +3,18 @@
     <!-- 循环的结构,少于3张图片的布局 -->
     <div class="imgText">
       <div class="imgText-left">
-        <h4>林志玲穿透视黑纱裙米兰看腹部微隆显孕味</h4>
-        <p>林志玲 30跟帖</p>
+        <h4>{{data.title}}</h4>
+        <p>{{data.user.nickname}} {{data.comment_length}}跟帖</p>
       </div>
-      <img
-        src="https://img20.360buyimg.com/da/s590x470_jfs/t1/6412/18/141/70492/5bacdaf3E48cea54f/414c8264705bd268.jpg.webp"
-      />
+      <img :src="$axios.defaults.baseURL+data.cover[0].url" />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["data"]
+};
 </script>
 
 <style scoped lang="less">
