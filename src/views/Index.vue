@@ -20,13 +20,13 @@
     <!-- sticky：是否使用粘性定位布局 -->
     <!-- swipeable: 是否开启手势滑动切换 -->
     <van-tabs v-model="active" sticky swipeable>
-      <van-tab v-for="(item, index) in categories" :key="index" :title="item">
+      <van-tab v-for="(item, index) in categories" :key="index" :title="item.name">
         <!-- vant 的列表组件 -->
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
           <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
             <!-- <van-cell v-for="item in list" :key="item" :title="item" /> -->
             <div v-for="(item,index) in list" :key="index" :title="item">
-              <PostItem1 />{{index}}
+              <PostItem1 />
               <PostItem2 />
               <PostItem3 />
             </div>
@@ -45,21 +45,7 @@ export default {
   data() {
     return {
       // 菜单的数据
-      categories: [
-        "关注",
-        "娱乐",
-        "体育",
-        "汽车",
-        "房产",
-        "关注",
-        "关注",
-        "娱乐",
-        "体育",
-        "汽车",
-        "房产",
-        "关注",
-        "∨"
-      ],
+      categories: [],
       // 记录当前tab的切换的索引
       active: 0,
       // 假设这个数组是后台返回的数据
@@ -83,6 +69,28 @@ export default {
     PostItem1,
     PostItem2,
     PostItem3
+  },
+  mounted() {
+    // 在请求之前，应该先判断本地有没有栏目的数据
+    const categories = JSON.parse(localStorage.getItem("categories"));
+    if (categories) {
+      this.categories = categories;
+    } else {
+      // 没有本地的数据（其实就是检测是否有登录，登录的话就有关注的栏目，没有登录的话就没有关注的栏目），才去获取栏目数据
+      this.$axios({
+        url: "/category"
+      }).then(res => {
+        // console.log(res);
+        const { data } = res.data;
+        // 给data添加一个点击跳转到栏目管理的图标
+        data.push({
+          name: "V"
+        });
+        this.categories = data;
+        // 把菜单的数据保存到本地
+        localStorage.setItem("categories", JSON.stringify(data));
+      });
+    }
   },
   methods: {
     onLoad() {

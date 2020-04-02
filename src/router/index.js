@@ -20,6 +20,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    // 首页路由配置
     path: "/",
     component: () => import("@/views/Index.vue")
   },
