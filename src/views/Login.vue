@@ -1,11 +1,8 @@
-// 1.在views文件夹创建一个登录页,大组件放在views,小组件放在components  快速生成模板 shift + < 
-
-// 2.配置路由
 <template>
-  <div class='container'>
+  <div class="container">
     <!-- 左上角的小叉叉 -->
     <div class="back-btn">
-      <span class="iconfont iconicon-test"></span>
+      <span class="iconfont iconicon-test" @click="$router.back()"></span>
     </div>
     <!-- 正中间的 NEW图标 -->
     <div class="logo">
@@ -22,7 +19,7 @@
       <div class="form-item">
         <button @click="handleClick()">登录</button>
       </div>
-    </div> -->
+    </div>-->
 
     <!-- 使用 vant ui 组件的输入框 -->
     <!-- van-form是表单的组件,@submit是表单按钮提交的事件 -->
@@ -43,20 +40,14 @@
       />
       <div>
         <!-- 如果这个按钮是在van-form组件内部,并且按钮的native-type="submit",说明点击这个按钮就会触发sumbit事件 -->
-        <van-button round block type="info" native-type="submit">
-            登录
-        </van-button>
+        <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
     </van-form>
     <!-- 注册按钮 -->
     <router-link to="/register">
-        <van-button round block>
-          注册
-        </van-button>
+      <van-button round block>注册</van-button>
     </router-link>
-
   </div>
-  
 </template>
 
 <script>
@@ -115,7 +106,9 @@ export default {
         // 使用vant弹窗提示,success表示成功的弹窗
         this.$toast.success(message);
         localStorage.setItem("userInfo", JSON.stringify(data));
-        this.$router.push("/personal");
+        // 判断地址栏有没有url参数,有的话就跳转到这个路径,没有就跳到首页
+        const { return_url } = this.$route.query;
+        this.$router.replace(return_url || "/");
       });
     }
   }

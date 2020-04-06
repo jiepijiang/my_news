@@ -9,6 +9,8 @@ import router from './router'
 // 导入 axios
 import axios from "axios";
 
+// 记录根实例
+let app;
 // 绑定到原型,加上以后就可以在组件中通过this.$axios来调用请求方法
 Vue.prototype.$axios = axios;
 
@@ -56,12 +58,25 @@ axios.interceptors.response.use(res => {
   if (statusCode === 400) {
     Toast.fail(message)
   }
+  // 处理状态码403的情况,表示token过期或者不存在
+  if (statusCode === 403) {
+    // 提示登录过期或者未登录
+    Toast.fail("请先登录!");
+    // window.location.href = 'http://localhost:8081' + "/login";
+    app.$router.push({
+      path: "/login",
+      query: {
+        return_url: app.$route.path
+      }
+    })
+
+  }
   return Promise.reject(error)
 })
 
 // 创建一个根实例
 // .$mount('#app') 相当于 el 配置,指定id为app 的元素作为模板
-new Vue({
+app = new Vue({
   // 路由对象
   router,
   // 加载第一个子组件,最低层的组件,写法是固定的

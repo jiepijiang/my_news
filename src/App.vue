@@ -5,8 +5,10 @@
 </template>
 
 <style lang="less">
-// 引入图标库
+// 引入图标库 -- 这个是老师的图标库
 @import url("//at.alicdn.com/t/font_1426139_jm7n2373nlh.css");
+// 这个是我的阿里图标库
+@import url("//at.alicdn.com/t/font_1736846_lmiybudfnr.css");
 // 导入 Vant 样式
 @import url("../node_modules/vant/lib/index.css");
 
@@ -31,6 +33,26 @@ ol {
 i,
 em {
   font-style: normal;
+}
+
+body,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+form,
+dl,
+dt,
+dd {
+  margin: 0px;
+  padding: 0px;
+  font-size: 12px;
+  font-weight: normal;
 }
 // ----公共样式---
 // 加一层灰色滤镜
