@@ -1,20 +1,7 @@
 import Vue from 'vue'
 // 导入路由
 import VueRouter from 'vue-router'
-// 导入登录组件
-import Login from '../views/Login.vue'
-// 导入注册组件
-import Register from '../views/Register.vue'
-// 导入个人中心页组件
-import Personal from '../views/Personal.vue'
-// 导入个人编辑页
-import EditProfile from '../views/EditProfile.vue'
-// 导入我的关注页
-import Follow from '../views/Follow.vue'
-// 导入我的跟帖页
-import Comment from '../views/Comment.vue'
-// 导入我的收藏页
-import Star from '../views/Star.vue'
+
 
 Vue.use(VueRouter);
 
@@ -25,11 +12,23 @@ const routes = [
     component: () => import("@/views/Index.vue")
   },
   {
+    // 搜索页路由配置
+    path: "/search",
+    component: () => import("@/views/Search.vue")
+  },
+  {
     // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/Login.vue")
+  },
+  {
+    // 分类栏目页
+    path: '/category',
+    // 除了首页之外的页面都可以用懒加载 @ 表示src
+    // .vue 的扩展名可以忽略
+    component: () => import("@/views/Category.vue")
   },
   {
     // 注册页

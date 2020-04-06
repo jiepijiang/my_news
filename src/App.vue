@@ -33,4 +33,8 @@ em {
   font-style: normal;
 }
 // ----公共样式---
+// 加一层灰色滤镜
+// #app {
+//   -webkit-filter: grayscale(1);
+// }
 </style>

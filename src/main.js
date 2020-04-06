@@ -17,6 +17,10 @@ Vue.use(Vant);
 
 // 添加基准路径
 axios.defaults.baseURL = "http://127.0.0.1:3000"
+// 本地IP地址 -- 可以使用手机扫码打开
+// axios.defaults.baseURL = "http://192.168.3.28:3000"
+// 使用线上地址
+// axios.defaults.baseURL = "http://hmtoutiao-api.atlansic.com"
 
 // 上线环境是否提示信息(现在可以忽略)
 Vue.config.productionTip = false;
