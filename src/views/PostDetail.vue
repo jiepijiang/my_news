@@ -22,10 +22,10 @@
 
       <!-- 正文下面的按钮 -->
       <div class="actions">
-        <div class="actions-item">
+        <div class="actions-item" @click="handleLike">
           <!-- 点赞 -->
           <span class="iconfont icondianzan"></span>
-          <i>{{Number(post.has_like)}}</i>
+          <i>{{Number(post.like_length)}}</i>
         </div>
         <div class="actions-item">
           <span class="iconfont icon-weixin"></span>
@@ -112,7 +112,28 @@ export default {
         }
       }).then(res => {
         this.post.has_follow = !this.post.has_follow;
-        this.$toast.success("关注成功");
+        this.$toast.success(this.post.has_follow ? "关注成功" : "取消关注成功");
+      });
+    },
+
+    // 点赞和取消点赞
+    handleLike() {
+      this.$axios({
+        url: "/post_like/" + this.post.user.id,
+        headers: {
+          Authorization: this.token
+        }
+      }).then(res => {
+        // 修改点赞的状态
+        this.post.has_like = !this.post.has_like;
+        if (this.post.has_like) {
+          // 点赞数量加一
+          this.post.like_length += 1;
+        } else {
+          this.post.like_length -= 1;
+        }
+        // 弹窗提示
+        this.$toast.success(res.data.message);
       });
     }
   }
