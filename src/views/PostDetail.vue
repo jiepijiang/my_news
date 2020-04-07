@@ -44,7 +44,7 @@
         <i>{{post.comment_length>100?'99+':post.comment_length}}</i>
       </div>
       <!-- 收藏图标 -->
-      <div class="icons">
+      <div class="icons" @click="handleStar">
         <span class="iconfont icon-shoucang" :class="post.has_star?'active':'' "></span>
       </div>
       <!-- 分享图标 -->
@@ -132,6 +132,21 @@ export default {
         } else {
           this.post.like_length -= 1;
         }
+        // 弹窗提示
+        this.$toast.success(res.data.message);
+      });
+    },
+
+    // 收藏和取消收藏
+    handleStar() {
+      this.$axios({
+        url: "/post_star/" + this.post.user.id,
+        headers: {
+          Authorization: this.token
+        }
+      }).then(res => {
+        // 修改收藏的状态
+        this.post.has_star = !this.post.has_star;
         // 弹窗提示
         this.$toast.success(res.data.message);
       });
@@ -257,6 +272,9 @@ export default {
         line-height: 1;
         border-radius: 50px;
       }
+    }
+    .active {
+      color: red;
     }
   }
 }

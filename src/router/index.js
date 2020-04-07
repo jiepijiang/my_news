@@ -22,6 +22,11 @@ const routes = [
     component: () => import("@/views/PostDetail.vue")
   },
   {
+    // 视频文章详情页路由配置
+    path: "/post/:id",
+    component: () => import("@/views/Video.vue")
+  },
+  {
     // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src

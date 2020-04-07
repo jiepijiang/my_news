@@ -1,5 +1,5 @@
 <template>
-  <div class="video">
+  <router-link :to="`/video/${data.id}`" class="video">
     <h4>{{data.title}}</h4>
     <div class="cover">
       <!-- 封面图片 -->
@@ -10,7 +10,7 @@
       </div>
     </div>
     <p>{{data.user.nickname}} {{data.comment_length}}跟帖</p>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -21,6 +21,7 @@ export default {
 
 <style lang="less" scoped>
 .video {
+  display: block;
   padding: 20/360 * 100vw;
   border-bottom: 1px #eee solid;
   h4 {

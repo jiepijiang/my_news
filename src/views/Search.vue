@@ -52,6 +52,7 @@ import PostItem2 from "@/components/PostItem2";
 // 视频的列表组件
 import PostItem3 from "@/components/PostItem3";
 export default {
+  name:"search",
   data() {
     return {
       // 输入输入框的值
