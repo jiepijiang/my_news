@@ -65,35 +65,53 @@ export default {
         //   为什么要加user对象,因为当请求的数据需要时间,post还是一个空对象,所以在渲染数据的时候想要拿到空对象里面的对象是会报错的,加个默认值就不会报错了
         user: {}
       },
-      moment
+      moment,
+      token: ""
     };
   },
   mounted() {
     //   获取文章id
     const { id } = this.$route.params;
-    this.$axios({
+    const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
+    // 保存一份到data
+    this.token = token;
+    // 如果token有值就给头信息加上token
+    const config = {
       // this.$route.params 获取动态参数id
       url: "/post/" + id
-    }).then(res => {
-      //   console.log(res);
+    };
+    // 如果有token有值,加入config
+    if (token) {
+      config.headers = {
+        Authorization: token
+      };
+    }
+    this.$axios(config).then(res => {
       //   将数据解构出来
       const { data } = res.data;
       this.post = data;
-      //   console.log(data);
     });
   },
   methods: {
-    //   关注和取消关注
+    //   关注和取消关注的按钮点击触发的函数
     handleFollow() {
+      // 先判断当前状态是关注还是未关注
+      let url = "";
+      if (this.post.has_follow) {
+        // 如果是关注,就实现取消关注的功能
+        url = "/user_unfollow/" + this.post.user.id;
+      } else {
+        url = "/user_follows/" + this.post.user.id;
+      }
       const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
-      //   这里是关注用户的axios请求
+      //   这里是关注和取消关注的axios请求
       this.$axios({
-        url: "/user_follows/" + this.post.user.id,
+        url,
         headers: {
           Authorization: token
         }
       }).then(res => {
-        this.post.has_follow = true;
+        this.post.has_follow = !this.post.has_follow;
         this.$toast.success("关注成功");
       });
     }
