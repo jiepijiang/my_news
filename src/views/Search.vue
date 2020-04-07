@@ -52,7 +52,7 @@ import PostItem2 from "@/components/PostItem2";
 // 视频的列表组件
 import PostItem3 from "@/components/PostItem3";
 export default {
-  name:"search",
+  name: "search",
   data() {
     return {
       // 输入输入框的值
@@ -119,6 +119,19 @@ export default {
         this.list = data;
       });
     }
+  },
+  // 组件进入时候触发这个路由守卫
+  // to:即将要进入的目标 路由对象
+  // from:当前导航正要离开的路由
+  // next:
+  beforeRouteEnter(to, from, next) {
+    // 如果是从首页进来的,就把数据初始化
+    next(vw=>{
+      if (from.path == "/") {
+        vw.showLayer=false;
+        vw.value="";
+      }
+    })
   }
 };
 </script>

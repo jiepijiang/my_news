@@ -20,10 +20,9 @@
       >{{post.user.nickname}} {{moment(post.create_date).format("YYYY-MM-DD hh:mm:ss")}}</div>
       <p class="content" v-html="post.content"></p>
 
-      <!-- 正文下面的按钮 -->
+      <!-- 正文下面的按钮 点赞和微信分享按钮-->
       <div class="actions">
         <div class="actions-item" @click="handleLike">
-          <!-- 点赞 -->
           <span class="iconfont icondianzan"></span>
           <i>{{Number(post.like_length)}}</i>
         </div>
@@ -34,6 +33,9 @@
       </div>
     </div>
 
+    <!-- 底部评论收藏分享组件-->
+    <!-- <ForumPosts :post="post" @click.native="handleStar" /> -->
+    <!-- 跟帖组件 -->
     <!-- 底部评论收藏分享 -->
     <div class="footer">
       <!-- 写跟帖 -->
@@ -58,6 +60,9 @@
 <script>
 // 导入处理时间的插件moment
 import moment from "moment";
+// 导入跟帖模块
+// import ForumPosts from "@/components/ForumPosts.vue";
+
 export default {
   data() {
     return {
@@ -69,6 +74,9 @@ export default {
       token: ""
     };
   },
+  // components: {
+  //   ForumPosts
+  // },
   mounted() {
     //   获取文章id
     const { id } = this.$route.params;
@@ -210,6 +218,7 @@ export default {
         max-width: 100%;
       }
     }
+    // 点赞和微信的样式
     .actions {
       display: flex;
       justify-content: center;
@@ -237,6 +246,7 @@ export default {
       }
     }
   }
+  // 底部的样式
   .footer {
     position: fixed;
     justify-content: space-between;

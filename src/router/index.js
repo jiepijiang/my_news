@@ -23,7 +23,7 @@ const routes = [
   },
   {
     // 视频文章详情页路由配置
-    path: "/post/:id",
+    path: "/video/:id",
     component: () => import("@/views/Video.vue")
   },
   {
