@@ -250,7 +250,17 @@ export default {
       this.refreshing = false;
       console.log("正在下拉刷新");
     }
-  }
+  },
+  // beforeRouteEnter(to, from, next) {
+  //   // 如果是来自栏目管理页
+  //   if (from.path == "/category") {
+  //     next(vw => {
+  //       vw.active = 0;
+  //     });
+  //   } else {
+  //     next();
+  //   }
+  // }
 };
 </script>
 

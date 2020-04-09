@@ -27,6 +27,11 @@ const routes = [
     component: () => import("@/views/Video.vue")
   },
   {
+    // 文章评论页
+    path: "/post_comment/:id",
+    component: () => import("@/views/PostComment.vue")
+  },
+  {
     // 登录页
     path: '/login',
     // 除了首页之外的页面都可以用懒加载 @ 表示src
@@ -83,7 +88,6 @@ const routes = [
   {
     // 我的跟帖
     path: '/comment',
-    // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/Comment.vue"),
     meta: {
@@ -94,16 +98,14 @@ const routes = [
   {
     // 我的收藏
     path: '/star',
-    // 除了首页之外的页面都可以用懒加载 @ 表示src
     // .vue 的扩展名可以忽略
     component: () => import("@/views/Star.vue"),
     meta: {
       // 代表这个页面需要授权 -- 验证
       authorization: true
     },
+
   },
-
-
 ]
 
 const router = new VueRouter({

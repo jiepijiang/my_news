@@ -24,7 +24,8 @@
       <div class="actions">
         <div class="actions-item" @click="handleLike">
           <span class="iconfont icondianzan"></span>
-          <i>{{Number(post.like_length)}}</i>
+          <i v-if="post.has_like">{{Number(post.like_length)}}</i>
+          <i v-if="!post.has_like">0</i>
         </div>
         <div class="actions-item">
           <span class="iconfont icon-weixin"></span>
@@ -34,26 +35,7 @@
     </div>
 
     <!-- 底部评论收藏分享组件-->
-    <!-- <ForumPosts :post="post" @click.native="handleStar" /> -->
-    <!-- 跟帖组件 -->
-    <!-- 底部评论收藏分享 -->
-    <div class="footer">
-      <!-- 写跟帖 -->
-      <div class="comment-input">发表评论</div>
-      <!-- 评论图标 -->
-      <div class="icons">
-        <span class="iconfont icon-pinglun"></span>
-        <i>{{post.comment_length>100?'99+':post.comment_length}}</i>
-      </div>
-      <!-- 收藏图标 -->
-      <div class="icons" @click="handleStar">
-        <span class="iconfont icon-shoucang" :class="post.has_star?'active':'' "></span>
-      </div>
-      <!-- 分享图标 -->
-      <div class="icons">
-        <span class="iconfont icon-tubiao212"></span>
-      </div>
-    </div>
+    <ForumPosts :post="post" />
   </div>
 </template>
 
@@ -61,7 +43,7 @@
 // 导入处理时间的插件moment
 import moment from "moment";
 // 导入跟帖模块
-// import ForumPosts from "@/components/ForumPosts.vue";
+import ForumPosts from "@/components/ForumPosts.vue";
 
 export default {
   data() {
@@ -74,9 +56,9 @@ export default {
       token: ""
     };
   },
-  // components: {
-  //   ForumPosts
-  // },
+  components: {
+    ForumPosts
+  },
   mounted() {
     //   获取文章id
     const { id } = this.$route.params;

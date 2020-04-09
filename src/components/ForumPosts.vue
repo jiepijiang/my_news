@@ -1,9 +1,8 @@
 <template>
-  <!-- 跟帖组件 ###没实现-->
   <!-- 底部评论收藏分享 -->
   <div class="footer">
     <!-- 写跟帖 -->
-    <div class="comment-input">发表评论</div>
+    <router-link :to="`/post_comment/${post.id}`" class="comment-input">发表评论</router-link>
     <!-- 评论图标 -->
     <div class="icons">
       <span class="iconfont icon-pinglun"></span>
