@@ -71,6 +71,7 @@ export default {
         const { message } = res.data;
         // console.log(message);
         this.$toast.success(message);
+        this.$router.replace("/login");
       });
     }
   }

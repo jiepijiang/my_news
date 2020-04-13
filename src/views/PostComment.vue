@@ -20,10 +20,10 @@
               <span>{{moment(item.create_date).fromNow()}}</span>
             </div>
           </div>
-          <span class="reply">回复</span>
+          <span class="reply" @click="handleReply(item)">回复</span>
         </div>
         <!-- 回复列表调用的组件 -->
-        <CommentFloor v-if="item.parent" :data="item.parent" />
+        <CommentFloor v-if="item.parent" :data="item.parent" @reply="handleReply" />
         <div class="content">{{item.content}}</div>
       </div>
     </van-list>
@@ -40,13 +40,14 @@
         :rows="rows"
         :autosize="!isFocus"
         type="textarea"
-        placeholder="说点什么..."
+        :placeholder="reply.user?`回复:@${reply.user.nickname}`:`说点什么呢...`"
         class="textarea"
         :class="isFocus ? `ative` : ``"
         @focus="handleFocus"
         @blur="handleBlur"
+        ref="textarea"
       />
-      <span class="submit" v-if="isFocus">发布</span>
+      <span class="submit" v-if="isFocus" @click="handleSubimit">发布</span>
     </div>
   </div>
 </template>
@@ -79,13 +80,17 @@ export default {
       //   页数
       pageIndex: 1,
       //   分页数
-      pageSize: 5,
+      pageSize: 10,
       //   发布评论的数据
       message: "",
       //   发布评论输入框的行数
       rows: 1,
       // 几率当前的输入框是否获得焦点
-      isFocus: false
+      isFocus: false,
+      // 记录回复评论的整个对象
+      reply: {},
+      // 是否正在加载
+      isload: false
     };
   },
   mounted() {
@@ -98,6 +103,10 @@ export default {
   methods: {
     //   封装请求评论数据的函数
     getCommentList() {
+      if (this.isload) {
+        return;
+      }
+      this.isload = true;
       this.$axios({
         url: `/post_comment/${this.pid}`,
         params: {
@@ -105,7 +114,7 @@ export default {
           pageSize: this.pageSize
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         const { data } = res.data;
         // 将res中返回的数据data里面的data解构出来，保存到list
         // 保存到data的list
@@ -118,11 +127,14 @@ export default {
         if (data.length < this.pageSize) {
           this.finished = true;
         }
+        // 表示这次已经加载完毕
+        this.isload = false;
       });
     },
 
     // 滚动到底部触发的事件
     onLoad() {
+      this.getCommentList();
       console.log(123);
     },
     // 评论输入框获得焦点时候触发的事件
@@ -132,7 +144,60 @@ export default {
     },
     // 评论输入框失去焦点时候触发
     handleBlur() {
-      this.isFocus = false;
+      setTimeout(() => {
+        this.isFocus = false;
+        if (this.message.trim == "") {
+          this.reply = {};
+        }
+      }, 300);
+    },
+    // 发布评论
+    handleSubimit() {
+      // console.log(this.message);
+      if (this.message == "") return;
+      const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
+
+      // 评论接口的参数
+      const data = {
+        content: this.message
+      };
+
+      // 如果reply有值,说明当前有回复的人存在
+      if (this.reply.id) {
+        // parent_id 就是回复的用户id
+        data.parent_id = this.reply.id;
+      }
+      // 发布评论的请求
+      this.$axios({
+        url: "/post_comment/" + this.pid,
+        method: "POST",
+        headers: {
+          Authorization: token
+        },
+        data
+      }).then(res => {
+        this.message = "";
+        this.$toast.success("发布成功");
+
+        // 重新请求列表数据
+        // 先清空数据,不清空的话会有重复的评论
+        this.list = [];
+        this.pageIndex = 1;
+        this.finished = false;
+        this.getCommentList();
+        // 清空回复的数据
+        this.reply = {};
+      });
+    },
+    // 点击回复按钮,回复评论
+    handleReply(item) {
+      setTimeout(() => {
+        // 记录下来点击回复的评论信息
+        this.reply = item;
+        // 点击回复,输入框弹出来
+        this.isFocus = true;
+        this.$refs.textarea.focus();
+      }, 300);
     }
   }
 };
